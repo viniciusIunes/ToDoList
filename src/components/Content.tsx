@@ -1,100 +1,86 @@
 import { useState } from 'react'
 import styles from './Content.module.css'
 import clipboard from '../assets/clipboard.svg'
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { AiOutlinePlusCircle } from "react-icons/ai"
 import { Trash } from '@phosphor-icons/react'
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
-  interface ContentProps {
-    id: string,
-    text: string,
-    checked: false,
-  }
+export function Content() {
+  // Define os estados atuais dos componentes
+  const [tasks, setTasks] = useState([]) // Armazena as tarefas na lista
+  const [newTask, setNewTask] = useState('') // Armazena a nova tarefa a ser adicionada
 
+  const taskLength = tasks.length
 
- export function Content({id, text, checked}:ContentProps) {
-  // export function Content() {
-  const [task, setTask] = useState<ContentProps[]>([
-    {
-      id: uuidv4(),
-      text:event.target.value,
-      checked: false
-    },
-    {
-      id: uuidv4(),
-      text:event.target.value,
-      checked: false
+  function handleCreateNewTask(event) {
+    event.preventDefault()
+    if (newTask !== '') {
+      const task = { 
+        id: uuidv4(), // Gera um ID único para a tarefa
+        title: newTask,
+        isCompleted: false 
+      }
+      setTasks([...tasks, task]) // Adiciona a nova tarefa ao estado 'tasks'
+      setNewTask('') // Limpa o campo do input
+    } else {
+      alert('Favor adicionar uma tarefa no campo.')
     }
-  ])
-  const [newTask, setNewTask] = useState('')
-
-  function handleCreateNewList() {
-      event.preventDefault()
-      setTask([...task, newTask])
-      setNewTask('')
   }
-
-  function handleNewTask() {
+  // Função para atualizar o valor do campo de nova tarefa
+  function handleNewTask(event) {
     setNewTask(event.target.value)
   }
-
-  const handleTaskCheck = (taskId: number) =>  {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === taskId) {
-        return { ...task, checked: !task.checked };
-      }
-      return task;
-    });
-    setTask(updatedTasks);
-};
-
   return (
     <section className={styles.content}>
-
-      <form onSubmit={handleCreateNewList} className={styles.wrapperInput}>
+      <form onSubmit={handleCreateNewTask} className={styles.wrapperInput}>
         <input
           className={styles.input}
-          placeholder = 'Adicione uma tarefa'
+          placeholder='Adicione uma tarefa'
           type="text"
+          name="comment"
           onChange={handleNewTask}
           value={newTask}
         />
         <button>
-          Criar  <AiOutlinePlusCircle size = '20' />
+          Criar <AiOutlinePlusCircle size='20' />
         </button>
       </form>
 
       <div className={styles.info}>
-        <p>Tarefas criadas <span>0</span></p>
-        <p>Concluídas <span>0</span></p>
+        <p>Tarefas criadas <span>{taskLength}</span></p>
+        <p>Concluídas <span>{tasks.filter(task => task.isCompleted).length} de {taskLength} </span></p>
       </div>
 
-
-      {task.length > 0 ? (
+      {tasks.length > 0 ? (
         <div className={styles.list}>
-          {task.map(tasks => {
-            return (
-                <ul>
-                  <li key={task.id}>
-                      <input
-                        id='checkbox'
-                        type="checkbox"
-                        value={task.text}
-                        checked={task.checked}
-                        onChange={() => handleTaskCheck(id)}
-                      />
-                      <label className={checked? styles.listCheck : styles.uncheckedList}
-                        htmlFor = 'checkbox' >
-                        {tasks.text}
-                      </label>
-
-                      <div>
-                        <Trash size={19} />
-                      </div>
-                  </li>
-                </ul>
-            )
-          })}
+          {tasks.map(task => (
+            <ul key={task.id}>
+              <li>
+                <input
+                  id={task.id}
+                  type="checkbox"
+                  checked={task.isCompleted}
+                  onChange={() => {
+                    const updatedTasks = tasks.map(t => {
+                      if (t.id === task.id) {
+                        t.isCompleted = !t.isCompleted;
+                      }
+                      return t;
+                    });
+                    setTasks(updatedTasks);
+                  }}
+                />
+                <label 
+                  htmlFor={task.id}
+                  className={task.isCompleted ? styles.listCheck : styles.uncheckedList}>
+                  {task.title}
+                </label>
+                <div>
+                  <Trash size={19} />
+                </div>
+              </li>
+            </ul>
+          ))}
         </div>
       ) : (
         <div className={styles.noTask}>
