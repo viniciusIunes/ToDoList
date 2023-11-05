@@ -13,7 +13,7 @@
   --purple: #8284fa;
   --purple-dark: #5e60ce;
 
-  -danger: #E25858;
+  --danger: #E25858;
 }
 
 * {
@@ -21,9 +21,9 @@
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: 0;
+  box-sizing: border-box;
 
-  font-size: 68.5%;
+  font-size: 68.5%;  
 }
 
 body {

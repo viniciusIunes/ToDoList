@@ -1,18 +1,24 @@
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import styles from './Content.module.css'
 import clipboard from '../assets/clipboard.svg'
 import { AiOutlinePlusCircle } from "react-icons/ai"
 import { Trash } from '@phosphor-icons/react'
 import { v4 as uuidv4 } from 'uuid'
 
-export function Content() {
+ interface ContentProps {
+   id: string,
+   title: string,
+   isCompleted: boolean,
+  }
+
+export function Content(){
   // Define os estados atuais dos componentes
-  const [tasks, setTasks] = useState([]) // Armazena as tarefas na lista
+  const [tasks, setTasks] = useState<ContentProps[]>([]) // Armazena as tarefas na lista
   const [newTask, setNewTask] = useState('') // Armazena a nova tarefa a ser adicionada
 
   const taskLength = tasks.length
 
-  function handleCreateNewTask(event) {
+  function handleCreateNewTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (newTask !== '') {
       const task = { 
@@ -25,10 +31,18 @@ export function Content() {
     } else {
       alert('Favor adicionar uma tarefa no campo.')
     }
-  }
+  } 
   // Função para atualizar o valor do campo de nova tarefa
-  function handleNewTask(event) {
+  function handleNewTask(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value)
+     }
+
+  function handleDeleteTask(tasksToDelete:string) {
+    const tasksWithoutDeletedOne = tasks.filter(task => {
+      return task.id !== tasksToDelete
+    })
+    console.log(tasksWithoutDeletedOne);
+    setTasks(tasksWithoutDeletedOne)
   }
   return (
     <section className={styles.content}>
@@ -75,9 +89,10 @@ export function Content() {
                   className={task.isCompleted ? styles.listCheck : styles.uncheckedList}>
                   {task.title}
                 </label>
-                <div>
+
+                <button onClick={() => handleDeleteTask(task.id)}>
                   <Trash size={19} />
-                </div>
+                </button>
               </li>
             </ul>
           ))}
