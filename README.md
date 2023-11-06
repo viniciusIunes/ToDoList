@@ -53,7 +53,7 @@ $ npm run dev
 
 ## Contribuição
 
-# Contribuições são bem-vindas! Se você deseja melhorar ou adicionar recursos a este projeto, siga estas etapas:
+### Contribuições são bem-vindas! Se você deseja melhorar ou adicionar recursos a este projeto, siga estas etapas:
 
 - Crie uma nova branch com sua funcionalidade:`git checkout -b minha-funcionalidade`.
 - Faça as alterações desejadas e faça commit: `git commit -m  'Adicionando nova funcionalidade' `.
