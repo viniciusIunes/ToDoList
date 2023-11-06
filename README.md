@@ -19,7 +19,6 @@
 - Excluir tarefas da lista.
 
 ![Alt text](./src/assets/image.png)
-![Alt text](./src/assets/image-1.png)
 
 ## 💡 Instalação e Uso
 
