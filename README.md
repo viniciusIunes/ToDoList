@@ -18,8 +18,8 @@
 - Marcar tarefas como concluídas.
 - Excluir tarefas da lista.
 
-![Alt text](image.png)
-![Alt text](image-1.png)
+![Alt text](./src/assets/image.png)
+![Alt text](./src/assets/image-1.png)
 
 ## 💡 Instalação e Uso
 
