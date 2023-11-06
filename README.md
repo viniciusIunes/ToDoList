@@ -19,6 +19,10 @@
 - Excluir tarefas da lista.
 
 ![Alt text](./src/assets/image.png)
+<<<<<<< HEAD
+=======
+<p align="center" style="text-align: center;>![Alt text](./src/assets/image-1.png)</p>
+>>>>>>> ed096bc7a0af799d8331c3399d32a8632e4e20a4
 
 ## 💡 Instalação e Uso
 
