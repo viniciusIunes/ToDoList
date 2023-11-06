@@ -19,7 +19,7 @@
 - Excluir tarefas da lista.
 
 ![Alt text](./src/assets/image.png)
-![Alt text](align="center" ./src/assets/image-1.png)
+<p align="center" style="text-align: center;>![Alt text](./src/assets/image-1.png)</p>
 
 ## 💡 Instalação e Uso
 
