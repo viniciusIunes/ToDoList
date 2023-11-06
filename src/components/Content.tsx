@@ -17,6 +17,7 @@ export function Content(){
   const [newTask, setNewTask] = useState('') // Armazena a nova tarefa a ser adicionada
 
   const taskLength = tasks.length
+  const isNewTaskEmpty = newTask.length === 0
 
   function handleCreateNewTask(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -55,7 +56,7 @@ export function Content(){
           onChange={handleNewTask}
           value={newTask}
         />
-        <button>
+        <button disabled={isNewTaskEmpty}>
           Criar <AiOutlinePlusCircle size='20' />
         </button>
       </form>
